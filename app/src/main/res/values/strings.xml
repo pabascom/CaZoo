@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">CAZoo</string>
+    <string name="navigation_drawer_close">Drawer Closed</string>
+    <string name="navigation_drawer_open">Drawer Opened</string>
+    <string name="description_paragraph">Browse the animals in our sanctuary and vote for your favorites. Each week, the
+        animals with the least votes are fed to the animals with the most.
+    </string>
+    <string name="disclaimer_paragraph">The CaZoo Animal Sanctuary advises that you may not actually decide who
+        survives. The CaZoo Animal Sanctuary Mobile Application includes in-app purchases. The size of your contribution is
+        proportional to the size of your vote. Mercy costs extra.
+    </string>
+</resources>
