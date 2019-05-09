@@ -58,6 +58,7 @@ data class Animal (val name: String, val type: String, val species: String, val 
             "Bear",
             "Antlion",
             "Aardvark",
+            "Hippopotamus",
             "Land Shark",
             "Mere Cat",
             "Exceptional Cat",

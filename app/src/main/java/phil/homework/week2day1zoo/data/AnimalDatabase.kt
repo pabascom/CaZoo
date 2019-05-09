@@ -11,8 +11,8 @@ class AnimalDatabase(context: Context, name: String, version: Int) : SQLiteOpenH
     override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL(AnimalContract.Query.SQL_CREATE_ENTRIES)
         val animalList = Animal.getAnimals(30);
-        animalList.map{
-            val values = ContentValues().apply{
+        animalList.map {
+            val values = ContentValues().apply {
                 put(AnimalContract.FeedEntry.COLUMN_NAME, it.name)
                 put(AnimalContract.FeedEntry.COLUMN_TYPE, it.type)
                 put(AnimalContract.FeedEntry.COLUMN_SPECIES, it.species)
@@ -41,12 +41,12 @@ class AnimalDatabase(context: Context, name: String, version: Int) : SQLiteOpenH
 
     fun getAllAnimals(): List<Animal> {
 
-        val mutableAnimalList = ArrayList<Animal>()
+        val animalList = ArrayList<Animal>()
         writableDatabase.rawQuery(AnimalContract.Query.SQL_GET_ANIMALS, null)
             .apply {
                 if (moveToFirst()) {
                     do {
-                        mutableAnimalList.add(
+                        animalList.add(
                             Animal(
                                 getString(getColumnIndex(AnimalContract.FeedEntry.COLUMN_NAME)),
                                 getString(getColumnIndex(AnimalContract.FeedEntry.COLUMN_TYPE)),
@@ -59,7 +59,30 @@ class AnimalDatabase(context: Context, name: String, version: Int) : SQLiteOpenH
                     return emptyList()
                 }
             }
-        return mutableAnimalList
+        return animalList
+    }
+
+    fun getAnimalsByType(type: AnimalType): List<Animal> {
+        val typeString = type.toString()
+        val animalList = ArrayList<Animal>()
+        writableDatabase.rawQuery(AnimalContract.Query.SQL_GET_ANIMALS, null)
+            .apply {
+                if (moveToFirst()) {
+                    do {
+                        Animal(
+                            getString(getColumnIndex(AnimalContract.FeedEntry.COLUMN_NAME)),
+                            getString(getColumnIndex(AnimalContract.FeedEntry.COLUMN_TYPE)),
+                            getString(getColumnIndex(AnimalContract.FeedEntry.COLUMN_SPECIES)),
+                            getInt(getColumnIndex(AnimalContract.FeedEntry.COLUMN_WEIGHT))
+                        ).apply{
+                            if(this.type == typeString) animalList.add(this)
+                        }
+                    } while (moveToNext())
+                } else {
+                    return emptyList()
+                }
+            }
+        return animalList
     }
 
 }
