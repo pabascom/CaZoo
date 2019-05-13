@@ -12,6 +12,6 @@ class HomeActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        fab.setOnClickListener { startActivity(Intent(applicationContext, AnimalBrowserActivity::class.java)) }
+        fab.setOnClickListener { startActivity(Intent(applicationContext, AnimalTypesListActivity::class.java)) }
     }
 }

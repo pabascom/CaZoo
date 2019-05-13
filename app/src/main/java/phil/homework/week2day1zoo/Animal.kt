@@ -1,8 +1,9 @@
 package phil.homework.week2day1zoo
 
+import phil.homework.week2day1zoo.data.AnimalType
 import kotlin.random.Random
 
-data class Animal (val name: String, val type: String, val species: String, val weight: Int){
+data class Animal (val name: String, val type: AnimalType, val species: String, val weight: Int){
 
     companion object Generator{
         private val names = arrayOf(
@@ -36,13 +37,7 @@ data class Animal (val name: String, val type: String, val species: String, val 
             "Holland",
             "Hadley"
         )
-        private val types = arrayOf(
-            "Fast",
-            "Ferocious",
-            "Cuddly",
-            "Cute",
-            "Tasty"
-        )
+        private val types = AnimalType.values()
         private val species = arrayOf(
             "Cat",
             "Meerkat",

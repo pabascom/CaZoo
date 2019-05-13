@@ -10,7 +10,7 @@ import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
-import phil.homework.week2day1zoo.activity.AnimalBrowserActivity
+import phil.homework.week2day1zoo.activity.AnimalTypesListActivity
 import phil.homework.week2day1zoo.activity.FavoritesActivity
 import phil.homework.week2day1zoo.activity.HomeActivity
 
@@ -42,7 +42,7 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 startActivity(Intent(applicationContext, HomeActivity::class.java))
             }
             R.id.animals -> {
-                startActivity(Intent(applicationContext, AnimalBrowserActivity::class.java))
+                startActivity(Intent(applicationContext, AnimalTypesListActivity::class.java))
             }
             R.id.favorites -> {
                 startActivity(Intent(applicationContext, FavoritesActivity::class.java))

@@ -14,7 +14,7 @@ class AnimalDatabase(context: Context, name: String, version: Int) : SQLiteOpenH
         animalList.map {
             val values = ContentValues().apply {
                 put(AnimalContract.FeedEntry.COLUMN_NAME, it.name)
-                put(AnimalContract.FeedEntry.COLUMN_TYPE, it.type)
+                put(AnimalContract.FeedEntry.COLUMN_TYPE, it.type.toString())
                 put(AnimalContract.FeedEntry.COLUMN_SPECIES, it.species)
                 put(AnimalContract.FeedEntry.COLUMN_WEIGHT, it.weight)
             }
@@ -31,7 +31,7 @@ class AnimalDatabase(context: Context, name: String, version: Int) : SQLiteOpenH
         val contentValue = ContentValues()
 
         contentValue.put(AnimalContract.FeedEntry.COLUMN_NAME, animal.name)
-        contentValue.put(AnimalContract.FeedEntry.COLUMN_TYPE, animal.type)
+        contentValue.put(AnimalContract.FeedEntry.COLUMN_TYPE, animal.type.toString())
         contentValue.put(AnimalContract.FeedEntry.COLUMN_SPECIES, animal.species)
         contentValue.put(AnimalContract.FeedEntry.COLUMN_WEIGHT, animal.weight)
 
@@ -49,7 +49,7 @@ class AnimalDatabase(context: Context, name: String, version: Int) : SQLiteOpenH
                         animalList.add(
                             Animal(
                                 getString(getColumnIndex(AnimalContract.FeedEntry.COLUMN_NAME)),
-                                getString(getColumnIndex(AnimalContract.FeedEntry.COLUMN_TYPE)),
+                                AnimalType.fromString(getString(getColumnIndex(AnimalContract.FeedEntry.COLUMN_TYPE))),
                                 getString(getColumnIndex(AnimalContract.FeedEntry.COLUMN_SPECIES)),
                                 getInt(getColumnIndex(AnimalContract.FeedEntry.COLUMN_WEIGHT))
                             )
@@ -62,27 +62,31 @@ class AnimalDatabase(context: Context, name: String, version: Int) : SQLiteOpenH
         return animalList
     }
 
+//    fun getAnimalsByType(type: AnimalType): List<Animal> {
+//        val typeString = type.toString()
+//        val animalList = ArrayList<Animal>()
+//        writableDatabase.rawQuery(AnimalContract.Query.SQL_GET_ANIMALS, null)
+//            .apply {
+//                if (moveToFirst()) {
+//                    do {
+//                        Animal(
+//                            getString(getColumnIndex(AnimalContract.FeedEntry.COLUMN_NAME)),
+//                            getString(getColumnIndex(AnimalContract.FeedEntry.COLUMN_TYPE)),
+//                            getString(getColumnIndex(AnimalContract.FeedEntry.COLUMN_SPECIES)),
+//                            getInt(getColumnIndex(AnimalContract.FeedEntry.COLUMN_WEIGHT))
+//                        ).apply{
+//                            if(this.type == typeString) animalList.add(this)
+//                        }
+//                    } while (moveToNext())
+//                } else {
+//                    return emptyList()
+//                }
+//            }
+//        return animalList
+//    }
+
     fun getAnimalsByType(type: AnimalType): List<Animal> {
-        val typeString = type.toString()
-        val animalList = ArrayList<Animal>()
-        writableDatabase.rawQuery(AnimalContract.Query.SQL_GET_ANIMALS, null)
-            .apply {
-                if (moveToFirst()) {
-                    do {
-                        Animal(
-                            getString(getColumnIndex(AnimalContract.FeedEntry.COLUMN_NAME)),
-                            getString(getColumnIndex(AnimalContract.FeedEntry.COLUMN_TYPE)),
-                            getString(getColumnIndex(AnimalContract.FeedEntry.COLUMN_SPECIES)),
-                            getInt(getColumnIndex(AnimalContract.FeedEntry.COLUMN_WEIGHT))
-                        ).apply{
-                            if(this.type == typeString) animalList.add(this)
-                        }
-                    } while (moveToNext())
-                } else {
-                    return emptyList()
-                }
-            }
-        return animalList
+        return getAllAnimals().filter{animal -> animal.type == type}
     }
 
 }
