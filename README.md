@@ -1,7 +1,5 @@
-# Week2Day1
-Containing code for the Zoo project
-
-## Assignment:
+# CaZoo
+## Challenge:
 Create a Zoo Android application
 1. Activity one: Make a homepage for zoo information 
 2. Activity two: ListView with list of all the categories of Animals. 
